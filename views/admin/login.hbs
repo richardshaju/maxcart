@@ -1,0 +1,98 @@
+<section>
+  <div class="container">
+    <div class="row" style="    padding-top: 7rem;">
+      <div class="col-12 col-lg-8  m-auto pt-5"
+        style="border: ridge;border-width: thin;box-shadow: 0 5px 38px 0 rgb(0 0 0 / 30%);">
+        <h2 class="text-center mb-3 pb-5">Admin Login</h2>
+        <form action="/admin/login" method="post" enctype="multipart/form-data" id="login">
+          {{#if loginErr}}
+          <p class="error" style="color: red;"> {{loginErr}}</p>
+          {{/if}}
+          <!-- Email input -->
+          <div class="form-outline mb-4" style="    padding-left: 4rem;
+    width: 88%;">
+            <input type="email" id="form2Example1" class="form-control" placeholder="Email" name="Email"required />
+
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-4" style="    padding-left: 4rem;
+    width: 88%;">
+            <input type="password" id="form2Example2" class="form-control" placeholder="Password" name="Password" required/>
+
+          </div>
+
+          <!-- 2 column grid layout for inline styling -->
+          <div class="row mb-4">
+            <div class="col d-flex justify-content-center">
+              <!-- Checkbox -->
+            </div>
+          </div>
+          <div class="row row-but" style="">
+            <!-- Submit button -->
+            <button type="submit" class="but btn btn-primary btn-block mb-4" style="">Log in</button>
+          </div>
+        </form>
+      </div>
+  <div class="adrow row col-12" style=" ">
+    <a type="submit" href="/login" target="_blank" class="ad btn btn-primary btn-block mb-4" style=" ">USER MODE</a>
+  </div>
+
+    </div>
+  </div>
+</section>
+<style>
+    .adrow {
+    padding-left: 9rem;
+    padding-top: 1rem;
+
+  }
+
+  @media(min-width:768px) {
+    .adrow {
+      padding-left: 31.5rem;
+      padding-top: 2rem;
+    }
+  }
+
+
+
+  .ad {
+    background-color: black;
+    
+    width: 61%;
+
+  }
+
+  @media(min-width:768px) {
+
+    .ad {
+      background-color: black;
+      width: 28%;
+      height: 3rem;
+    }
+  }
+
+  .row-but {
+    padding-left: 152px;
+  }
+
+  @media(min-width:768px) {
+    .row-but {
+      padding-left: 20rem;
+    }
+  }
+
+  .but {
+    width: 35%;
+    height: 3rem;
+  }
+
+  @media (min-width:768px) {
+    .but {
+      box-shadow: 0 4px 10px 0 rgb(0 0 0 / 30%);
+      width: 28%;
+      height: 3rem;
+    }
+  }
+</style>

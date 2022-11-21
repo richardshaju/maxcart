@@ -1,0 +1,486 @@
+{{#if nullCart}}
+<div class="container  mt-5" style="padding-top: 15rem; padding-bottom: 16rem;">
+  <div class="col-md-12 text-center">
+    <h2>No products in Cart</h2>
+    <br>
+  </div>
+</div>
+{{else}}
+<div style="background-color:#E5E4E2  ;margin-top: 3rem;">
+  <section class="pt-5 mt-5 ">
+    <div class="mt-5 contnr ">
+      <div class="row" style=" ">
+        {{#each products }}
+        <div class="col-sm-12 col-lg-12 pb-4 ">
+          <div class="card" style="">
+            <div class="row">
+              <div class="column" style="padding-bottom: 86px;">
+                <div class="imagediv">
+                  <img src="/product-images/{{this.products._id}}.jpg" alt="Denim Jeans"
+                    class="image  mr-auto pl-3 pt-3" style="color: ;">
+                </div>
+              </div>
+              <div class="column_2">
+                <h1 class="title">{{this.products.Name}}</h1>
+                <p class="desp">{{this.products.Description}}</p>
+                <p>Quantity : <span class="{{this.products._id}}">{{this.quantity}}</span></p>
+                <p> <strong> Delivery by {{../date}}</strong></p>
+                <h2 style="font-size: 20px;">₹<span id="{{this.products._id}}">{{this.total}}</span></h2>
+                   <div class="remove" style="">
+                  <a class=" btn btn-danger "
+                    onclick="removeCartProduct('{{this.products._id}}','{{this._id}}')" style="color: #fff;">Remove</a>
+                </div>
+                <div align="center" class=" inc ">
+                  <div style="float: left;" class="pr-2">
+                    <button class="butn btn btn-responsive bg-dark text-white"
+                      onclick="changeQuantity('{{this._id}}','{{this.products._id}}','{{../user._id}}',-1)">-</button>
+                  </div>
+                  <div style="float: left; font-size: 20px;" class="pr-2">
+                    <span class="{{this.products._id}}">{{this.quantity}}</span>
+                  </div>
+                  <div style="float: left;">
+                    <button class="butn btn  btn-responsive bg-dark text-white"
+                      onclick="changeQuantity('{{this._id}}','{{this.products._id}}','{{../user._id}}',1)">+</button>
+                  </div>
+
+                </div>
+             
+              </div>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+
+      </div>
+      <div class="row " style="">
+        <div class="col-12 col-sm-8 col-lg-12 pb-5 last" style="">
+          <div class="card_1" style="">
+            <div class="row">
+              <div class="price-details">
+                <h1 class="title_p" style="color: slategray;">PRICE DETAILS</h1>
+                <hr class="hr">
+                <div class="LHS">
+                  <h5 class="txt">Total Price</h5>
+                  <h5 class="txt">Discount</h5>
+                  <h5 class="txt">Delivery Charge</h5>
+                  <hr class="hr2">
+                </div>
+                <div class="RHS">
+                  <h5 class="txt1">₹<span id="total">{{total}}</span></h5>
+                  <h5 class="txt1">₹00</h5>
+                  <h5 class="txt1" style="color: green;">FREE</h5>
+                  <hr>
+                </div>
+                <div class="LHS_1">
+                  <h1 class="title_p" style="padding-left: 1rem;">Grand Total</h1>
+                </div>
+                <div class="RHS">
+                  <h1 class="title_p" style="padding-left: 1rem; color: red;">₹<span id="total_2"> {{total}}</span></h1>
+                  <div class="place">
+                    <a href="/place-order" class="place-order btn btn-success">Place Order</a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+</div>
+</div>
+</section>
+</div>
+{{/if}}
+<footer>
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+    &copy;
+    <script type="text/javascript">
+      var today = new Date()
+      var year = today.getFullYear()
+      document.write(year)
+    </script>
+    <a class="text-black">CARTMAX</a>
+  </div>
+</footer>
+
+<script>
+
+  function changeQuantity(cartId, productId, userId, count) {
+    let quantity = parseInt(document.getElementsByClassName(productId)[0].innerHTML)
+    count = parseInt(count)
+    $.ajax({
+      url: '/change-product-quantity',
+      data: {
+        cart: cartId,
+        product: productId,
+        count: count,
+        quantity: quantity,
+        userId: userId
+      },
+      method: 'post',
+      success: (response) => {
+        if (response.removeProduct) {
+          document.getElementById("myBtn").disabled = true;
+
+        } else {
+          try {
+            for (i = 0; i < 3; i++) {
+              document.getElementsByClassName(productId)[i].innerHTML = quantity + count
+            }
+          } catch (err) {
+            document.getElementById(productId).innerHTML = response.value
+            document.getElementById('total_2').innerHTML = response.total
+            document.getElementById('total').innerHTML = response.total
+          }
+
+        }
+      }
+    })
+  }
+
+  function removeCartProduct(productId, cartId) {
+    $.ajax({
+      url: '/remove-product',
+      data: {
+        productId: productId,
+        cartId: cartId,
+      },
+      method: 'post',
+      success: (response) => {
+        if (response) {
+          if (confirm("Are you sure to remove this product?")) {
+            location.reload()
+          }
+        }
+      }
+    })
+  }
+
+
+
+
+</script>
+
+<style>
+
+  .desp{
+padding-right: 26px;
+  }
+   @media (min-width:768px) {
+    .desp{
+      padding-right: unset;
+    }
+   }
+  .price-row {
+    border: solid;
+    width: 42rem;
+    margin-left: 6rem;
+  }
+
+  .place {
+    padding-left: 13px;
+  }
+
+  @media (min-width:768px) {
+    .place {
+      padding-left: 224px;
+      margin: -45px;
+      padding-top: 11px;
+
+    }
+  }
+
+  .price-details {}
+
+  @media (min-width:768px) {
+    .price-details {}
+  }
+
+  .place-order {
+
+
+    width: 75%;
+    height: 15%;
+    margin: auto;
+  }
+
+  @media (min-width:768px) {
+    .place-order {
+      width: 70%;
+    }
+  }
+
+  .hr2 {
+
+    width: 0;
+
+  }
+
+  @media (min-width:768px) {
+    .hr2 {
+      width: 100%;
+    }
+  }
+
+  .hr {
+    width: 93%;
+  }
+
+  @media (min-width:768px) {
+    .hr {
+      width: 99%;
+    }
+  }
+
+  .txt {
+    font-size: large;
+    padding-left: 25px;
+  }
+
+  @media (min-width:768px) {
+    .txt {}
+  }
+
+  .txt1 {
+    font-size: large;
+    padding-left: 25px;
+
+  }
+
+  @media (min-width:768px) {
+    .txt1 {}
+  }
+
+  .last {}
+
+
+
+  @media (min-width:768px) {
+    .last {
+      padding-right: 27rem;
+    }
+  }
+
+  .LHS_1 {
+    width: 50%;
+    float: left;
+    padding-left: 10px;
+  }
+
+  @media (min-width : 768px) {
+    .LHS_1 {
+      width: 46%;
+      float: left;
+      padding-left: 6rem;
+
+    }
+  }
+
+  .LHS {
+    width: 50%;
+    float: left;
+
+  }
+
+  @media (min-width : 768px) {
+    .LHS {
+      width: 50%;
+      float: left;
+      padding-left: 6rem;
+    }
+  }
+
+  .RHS {
+    width: 50%;
+    float: left;
+    padding-right: 28px;
+  }
+
+  @media (min-width : 768px) {
+    .RHS {
+      width: 50%;
+      float: left;
+    }
+  }
+
+  @media (min-width : 768px) {
+    .price-details {
+      float: left;
+      width: 95%;
+      padding-left: 5px;
+      margin: auto;
+      padding-bottom: 47px;
+    }
+  }
+
+  .column {
+    float: left;
+    width: 25%;
+    padding-left: 5px;
+    margin: auto;
+    padding-bottom: 47px;
+
+  }
+
+  @media (min-width : 768px) {
+    .column {
+      padding: 10px;
+    }
+  }
+
+  .column_2 {
+
+    width: 70%;
+    padding: 1px;
+    margin: auto;
+    padding-right: 82px;
+  }
+
+
+  @media (min-width : 768px) {
+    .column_2 {
+      padding: 10px;
+      float: left;
+    }
+  }
+
+  .card {
+    margin-right: auto;
+    margin-left: auto;
+    height: 309px;
+    width: 449px;
+
+    font-size: 83%
+  }
+
+  @media (min-width : 768px) {
+    .card {
+      display: table-cell;
+      float: none;
+      height: 230px;
+      width: 800px;
+      vertical-align: middle;
+      font-size: 102%;
+    }
+  }
+
+  .image {
+
+    width: 6rem;
+
+  }
+
+  @media (min-width : 768px) {
+    .image {
+      width: 10rem
+    }
+  }
+
+  .imagediv {
+    height: 8rem;
+    margin-bottom: 55px;
+    margin-bottom: -21px;
+  }
+
+  @media (min-width : 768px) {
+    .imagediv {
+      height: 12rem;
+    }
+  }
+
+  .inc {
+    width: 170px;
+    float: left;
+    padding-left: 15px;
+    padding-top: 6px;
+  }
+
+  @media (min-width : 768px) {
+    .inc {
+      width: 170px;
+      float: left;
+      padding-left: 38px;
+    }
+  }
+
+  .remove {
+    padding-left: 9rem;
+    margin: -13px;
+  }
+
+  @media (min-width : 768px) {
+    .remove {
+      padding-left: 22rem;
+    }
+  }
+
+  .contnr {
+    padding-left: 1px;
+  }
+
+  @media (min-width : 768px) {
+    .contnr {
+      padding-left: 8rem;
+    }
+  }
+
+  .title {
+    font-size: 17px;
+  }
+
+  @media (min-width:768) {
+    .title {
+      font-size: 30px;
+
+    }
+  }
+
+  .title_p {
+    font-size: 18px;
+    padding-left: 20px;
+    padding-top: 5px;
+  }
+
+  @media (min-width:768) {
+    .title_p {
+      font-size: 25px;
+    }
+  }
+
+  .butn {
+    height: 30px;
+    width: 31px;
+    text-align: center;
+    line-height: 15px;
+    color: black;
+  }
+
+  .card_1 {
+    margin-right: auto;
+    margin-left: auto;
+    height: 250px;
+    width: 400px;
+    background-color: #fff;
+    font-size: 83%;
+    vertical-align: middle;
+  }
+
+  @media (min-width : 768px) {
+    .card_1 {
+      margin-right: auto;
+      margin-left: auto;
+      float: none;
+      height: 230px;
+      width: 673px;
+      vertical-align: middle;
+      font-size: 102%;
+      padding-bottom: 14rem;
+      PADDING-TOP: 11PX;
+
+    }
+  }
+</style>
