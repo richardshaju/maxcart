@@ -10,7 +10,7 @@ var adminRouter = require('./routes/admin');
 var fileUpload = require('express-fileupload')
 var app = express();
 var db = require('./config/connection')
-var session = require('express-session')
+var session = require('cookie-session')
 process.env.PWD = process.cwd()
 
 // view engine setup
