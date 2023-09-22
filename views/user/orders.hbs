@@ -1,4 +1,8 @@
 <style>
+ 
+  .order-page section{
+     min-height: 50rem;
+  }
   p {
     margin-bottom: 0.2rem;
         font-size: 14px;
@@ -32,7 +36,7 @@
 {{#if nullCart}}
 <h1 style="padding-bottom: 16rem;">{{nullCart}}</h1>
 {{else}}
-<div style="background-color:#E5E4E2  ;margin-top: 3rem;">
+<div class="order-page" style="background-color:#E5E4E2  ;margin-top: 3rem;">
   <section class="pt-5 mt-5 ">
     <div class="mt-5 contnr ">
       <div class="row" style=" ">
@@ -79,9 +83,7 @@
     </div>
 
   </section>
-</div>
-{{/if}}
-<footer >
+  <footer >
   <!-- Copyright -->
   <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
     &copy;
@@ -93,6 +95,9 @@
     <a class="text-black">CARTMAX</a>
   </div>
 </footer>
+</div>
+{{/if}}
+
 <script>
 
   function cancelOrder(orderId) {

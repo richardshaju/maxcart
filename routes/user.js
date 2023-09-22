@@ -23,7 +23,7 @@ router.get('/', async function (req, res, next) {
     cartCount = await userHelpers.getCartCount(user._id)
   } else {
   }
-  let values = ["Mobiles", "Laptops", "Electronics", "Appliances", "Camera", "Home", "Toys", "Fashion", "Shoes", "For Babies", "Books", "Sports"]
+  let values = ["Mobiles", "Laptops", "Electronics", "Appliances", "Camera", "Home", "Toys", "Fashion", "Shoes", "Babies", "Books", "Sports"]
   res.render('./user/index', { admin: false, user, cartCount, pageName: "Cartmax", values });
   //console.log(values.slice(0,1))
 
@@ -182,7 +182,7 @@ router.get('/products/:id', async (req, res) => {
   } else if (req.params.id == "Fashion") {
     fashion = true
   }
-  res.render('user/products', { laptop, fashion, products, cartCount, user: req.session.user, admin: false, pageName: "Products" })
+  res.render('user/products', { laptop, fashion, products, cartCount, user: req.session.user, cart: true, pageName: "Products" })
 })
 router.post('/cancel-order', async (req, res) => {
   await userHelpers.cancelOrder(req.body).then((response) => {

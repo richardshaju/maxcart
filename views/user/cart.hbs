@@ -1,7 +1,14 @@
+<style>
+  .sad_image{
+    width: 3rem;
+  }
+</style>
+
 {{#if nullCart}}
 <div class="container  mt-5" style="padding-top: 15rem; padding-bottom: 16rem;">
   <div class="col-md-12 text-center">
-    <h2>No products in Cart</h2>
+    <img class="sad_image" src="/utility/sad.jpg" alt="">
+    <h3>No products in Cart</h3>
     <br>
   </div>
 </div>
@@ -17,7 +24,7 @@
               <div class="column" style="padding-bottom: 86px;">
                 <div class="imagediv">
                   <img src="/product-images/{{this.products._id}}.jpg" alt="Denim Jeans"
-                    class="image  mr-auto pl-3 pt-3" style="color: ;">
+                    class="image  mr-auto pl-3 pt-3" >
                 </div>
               </div>
               <div class="column_2">
@@ -370,13 +377,13 @@ padding-right: 26px;
 
   .image {
 
-    width: 6rem;
+    width: 4rem;
 
   }
 
   @media (min-width : 768px) {
     .image {
-      width: 10rem
+      width: 8rem
     }
   }
 
