@@ -8,8 +8,14 @@
     ],
     "routes": [
         {
-            "src": "routes/(.*)",
-            "dest": "routes"
+            "src": "/(.*)",
+            "dest": "bin/www"
+        }
+    ],
+    "rewrites": [
+        {
+            "source": "/routes/(.*)",
+            "destination": "/routes"
         }
     ]
 }
