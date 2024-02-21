@@ -406,14 +406,17 @@ module.exports = {
     },
     getRequiredProducts: (category) => {
         return new Promise(async (resolve, reject) => {
-            let products = await db.get().collection(collection.PRODUCT_COLLECTION)
-                .find(
-                    {
+            try {
+                let products = await db.get().collection(collection.PRODUCT_COLLECTION)
+                    .find({
                         Category: category
-                    }
-                ).toArray()
-            resolve(products)
-            console.log(products);
+                    }).toArray();
+                console.log(products);
+                resolve(products);
+            } catch (error) {
+                console.error("Error fetching products:", error);
+                reject(error); // Reject the promise with the error
+            }
         })
     },
     getMultipliedValue: (userId, productId) => {
