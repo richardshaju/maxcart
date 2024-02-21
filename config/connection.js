@@ -3,7 +3,7 @@ const state = {
     db:null
 }
 module.exports.connect = function(done){
-    const url = 'mongodb+srv://richard:lyAcyGqoiaznxdPn@cluster0.vwonqjh.mongodb.net/shopping?retryWrites=true&w=majority'
+    const url = process.env.MONGODB_URI
     const dbname = 'shopping'
 
 
